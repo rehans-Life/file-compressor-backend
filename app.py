@@ -10,12 +10,21 @@ CORS(app)
 app.config['UPLOAD_COMPRESSED_FILE'] = UPLOAD_COMPRESSED_FILE
 app.config['UPLOAD_DECOMPRESSED_FILE'] = UPLOAD_DECOMPRESSED_FILE
 app.config['UPLOAD_TXT_FILE'] = UPLOAD_TXT_FILE
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 cors = CORS(app, resource={
     r"/*":{
         "origins":"*"
     }
 })
+
+@app.after_request
+def handle_options(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+
+    return response
 
 @app.route('/compress',methods=['GET','POST'])
 @cross_origin()
