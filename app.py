@@ -3,7 +3,7 @@ from utils import UPLOAD_COMPRESSED_FILE,UPLOAD_DECOMPRESSED_FILE,UPLOAD_TXT_FIL
 import os
 from werkzeug.utils import secure_filename
 from huffman import huffmanCoding
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 
 app = Flask(__name__)
 CORS(app)
@@ -17,11 +17,8 @@ cors = CORS(app, resource={
     }
 })
 
-@app.route('/')
-def index():
-    return {'message':"hello from the flask backend"}
-
 @app.route('/compress',methods=['GET','POST'])
+@cross_origin()
 def compress():
     
     if request.method == 'POST':
@@ -40,6 +37,7 @@ def compress():
         return {"success":False,"message":'Invalid Method'}
 
 @app.route('/decompress/<path:filename>')
+@cross_origin()
 def decompress(filename):
     fileName,_ = os.path.splitext(filename)    
     huffmanCoding.decompression(fileName)
@@ -47,6 +45,7 @@ def decompress(filename):
     return {"success":True,"message":'File Successfully Decompressed'}
 
 @app.route('/download/file/<filename>/<type>')
+@cross_origin()
 def sendFile(filename,type):
     fileName,_ = os.path.splitext(filename)
     if type == "binary":
