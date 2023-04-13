@@ -37,7 +37,12 @@ def compress():
 
 @app.route('/decompress/<path:filename>')
 def decompress(filename):
+    
     fileName,_ = os.path.splitext(filename)
+    path = os.path.join(app.config['UPLOAD_TXT_FILE'], filename)
+    
+    huffmanCoding.path = path
+    huffmanCoding.compression()
     huffmanCoding.decompression(fileName)
 
     return jsonify({"success":True,"message":'File Successfully Decompressed'})
