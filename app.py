@@ -4,6 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 from huffman import huffmanCoding
 from flask_cors import CORS
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -25,17 +26,17 @@ def compress():
         huffmanCoding.path = path
         huffmanCoding.compression()
         
-        return {"success":True,"message":'File Successfully Compressed'}
+        return json.dumps({"success":True,"message":'File Successfully Compressed'})
         
     else:
-        return {"success":False,"message":'Invalid Method'}
+        return json.dumps({"success":False,"message":'Invalid Method'})
 
 @app.route('/decompress/<path:filename>')
 def decompress(filename):
     fileName,_ = os.path.splitext(filename)    
     huffmanCoding.decompression(fileName)
         
-    return {"success":True,"message":'File Successfully Decompressed'}
+    return json.dumps({"success":True,"message":'File Successfully Decompressed'})
 
 @app.route('/download/file/<filename>/<type>')
 def sendFile(filename,type):
