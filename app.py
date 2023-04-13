@@ -23,6 +23,12 @@ def compress():
     if request.method == 'POST':
 
         file = request.files.get('file')
+        
+        _,ext = os.path.splitext(file.filename)
+        
+        if ext != '.txt':
+            return jsonify({"success":False,"message":'Only Text files can be Decompressed'})    
+        
         filename = secure_filename(file.filename)
         path = os.path.join(app.config['UPLOAD_TXT_FILE'], filename)
         file.save(path)
@@ -38,11 +44,8 @@ def compress():
 @app.route('/decompress/<path:filename>')
 def decompress(filename):
     
-    fileName,ext = os.path.splitext(filename)
+    fileName,_ = os.path.splitext(filename)
     path = os.path.join(app.config['UPLOAD_TXT_FILE'], filename)
-    
-    if ext != '.txt':
-        return jsonify({"success":False,"message":'Only Text files can be Decompressed'})    
     
     huffmanCoding.path = path
     huffmanCoding.compression()
