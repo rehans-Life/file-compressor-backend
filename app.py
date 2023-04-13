@@ -11,6 +11,12 @@ app.config['UPLOAD_COMPRESSED_FILE'] = UPLOAD_COMPRESSED_FILE
 app.config['UPLOAD_DECOMPRESSED_FILE'] = UPLOAD_DECOMPRESSED_FILE
 app.config['UPLOAD_TXT_FILE'] = UPLOAD_TXT_FILE
 
+cors = CORS(app, resource={
+    r"/*":{
+        "origins":"*"
+    }
+})
+
 @app.route('/')
 def index():
     return {'message':"hello from the flask backend"}
