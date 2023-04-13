@@ -1,0 +1,64 @@
+Transtion-property: To specify the property of the element that we want to set the transition for. For example:
+color,background-color,font-size
+
+Transition-duration: When a change happens in one of the specified properties of the element how long is that
+change is going to take to complete
+
+Transition-delay: When a change is about to happen in one of the specified properties of the element after how much time is that change going to take place in.
+
+Transition-timing-function: To specify when the change is happening to the property for that duration you have
+set for the change is going to be quick in that start and fast in the end (ease-out) or is it going to be slow
+in the start and fast in the end (ease-in) or constant 
+
+Transtion allows you to combine all the above 4 into one (transition-property,transition-duration,
+transition-timing-function, transition-delay).
+
+CSS Animation Property:
+
+Here unlike transition where you were combining it with pseudo classes here you built your own animations
+from ground up specifying what properties are going to be applied to the element on the animation.
+
+@keyframes specifies the frames of the animation and first thing beside you have to specify the animations name
+you are creating using it.
+
+In the curly braces you have to specify the starting properties that are going to be applied on the element on 
+the animation and those properties will specified after the 'from' key word 
+
+And then after in the 'to' key word you specify ending properties that are going to be applied on the elements during the animation.
+
+animation-name: In order to apply your animation on an element that you have created using @keyframes you use the animation-name property for it 
+
+animation-duration: for the duration of the animation
+
+Now instead of using from and to keyword to specify what properties are your elements going to have during the start and at the end of your animation you can use percentages to specify at what percentage of your animation
+whats going to happen
+
+animation-iteration-count to specify how many times is the animation going to run.
+
+animation-direction makes the animation start from the specified direction for example if you set it to 
+reverse then animation starts from last key frame and goes to the end one.
+
+animaton-fill-mode is for specifying the styles you want to apply after the animation has finished. By setting
+it to forwards the properties of the last keyframe rendered is applied on the element after the animation has
+finished rendering  and if you set it to backwards then the properties of the first keyframe is applied once the
+animation has finished rendering by setting it to both it sets it to the last keyframes properties.
+
+animation shorthand is a shorthand to combine all the animation properties into one.
+
+# Transform Property
+
+It is assigned a method and accordinly it transforms the component according to the method passed into it.
+
+Scale Function: Allows to scale the size of the elements by a multiple either horizontally, vertically or both
+
+Translate Function: Allows to move the element horizontally and vertically.
+
+# Prefixes are used to make sure your animation gets rendered on all type of browsers 
+
+--prefix--animation-property
+
+(i) --webkit-- for tablets and ios devices
+(ii) --ms-- 
+(iii) --moz--
+(iv) --o--
+
