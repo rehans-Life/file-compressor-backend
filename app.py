@@ -18,16 +18,8 @@ cors = CORS(app, resource={
     }
 })
 
-@app.after_request
-def handle_options(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
-
-    return response
-
 @app.route('/compress',methods=['GET','POST'])
-@cross_origin()
+@cross_origin(origin='file-compressor-backend.vercel.app',headers=['Content-Type','Authorization'])
 def compress():
     
     if request.method == 'POST':
@@ -46,7 +38,7 @@ def compress():
         return {"success":False,"message":'Invalid Method'}
 
 @app.route('/decompress/<path:filename>')
-@cross_origin()
+@cross_origin(origin='file-compressor-backend.vercel.app',headers=['Content-Type','Authorization'])
 def decompress(filename):
     fileName,_ = os.path.splitext(filename)    
     huffmanCoding.decompression(fileName)
@@ -54,7 +46,7 @@ def decompress(filename):
     return {"success":True,"message":'File Successfully Decompressed'}
 
 @app.route('/download/file/<filename>/<type>')
-@cross_origin()
+@cross_origin(origin='file-compressor-backend.vercel.app',headers=['Content-Type','Authorization'])
 def sendFile(filename,type):
     fileName,_ = os.path.splitext(filename)
     if type == "binary":
